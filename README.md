@@ -1,6 +1,8 @@
 # Kigo
 
-TODO: Write a gem description
+Kigo is an online vacation rental software. http://kigo.net
+
+They also provide their services to be accessed via API. 
 
 ## Installation
 
@@ -16,14 +18,28 @@ Or install it yourself as:
 
     $ gem install kigo
 
+## Configuration
+
+Add an initializer e.g config/initializers/kigo.rb
+
+You will get the username and password once you register.
+
+```ruby
+Kigo.configure do |config|
+  config.username = 'your username'
+  config.password = 'your password'
+end
+```
+
 ## Usage
 
-TODO: Write usage instructions here
+NOTE: Still in development
 
-## Contributing
+Basically to use the gem is to call the API service name in underscore.
 
-1. Fork it ( http://github.com/xsoulsyndicate/kigo/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+For example when you want to access /diffPropertyCalendarReservations you can use:
+
+```ruby
+diff_id = "diff id string"
+Kigo.diff_property_calendar_reservations diff_id
+```
