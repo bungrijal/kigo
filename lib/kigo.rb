@@ -87,7 +87,7 @@ module Kigo
     self.access('/diffPropertyCalendarReservations', :post, { 'DIFF_ID' => diff_id })
   end
 
-  def self.createConfirmedReservation(params)
+  def self.create_confirmed_reservation(params)
     # params example:
     # {
     #   "PROP_ID" => 1434,
