@@ -128,6 +128,10 @@ module Kigo
     self.access('/readProperty', :post, { 'PROP_ID' => property_id })
   end
 
+  def self.read_property_photo_file(property_id, photo_id)
+    self.access("/readPropertyPhotoFile", :post, { "PROP_ID" => property_id, "PHOTO_ID" => photo_id })
+  end
+
   # Pricing
   def self.read_property_pricing_setup(property_id)
     self.access('/readPropertyPricingSetup', :post, { 'PROP_ID' => property_id })
