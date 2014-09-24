@@ -8,12 +8,12 @@ module Kigo
   def self.wrap_request(end_point, request_method, data={}, headers={})
     basic_auth = { username: Kigo.configuration.username, password: Kigo.configuration.password }
     encoded_auth = "Basic #{Base64.strict_encode64("#{basic_auth[:username]}:#{basic_auth[:password]}")}"
-    data = self.filter_params(data)
+    data = self.filter_params(data) unless data.nil?
     request_options = { method: request_method, headers: headers.merge(
         { 'Authorization' => encoded_auth,
           'Content-Type' => 'application/json' }
       ) }
-    request_options = request_options.merge(request_method == :post ? { body: data.to_json } : { params: data.to_json })
+    request_options = request_options.merge(request_method == :post ? { body: data.nil? ? "null" : data.to_json } : { params: data.nil? ? "null" : data.to_json })
     Typhoeus::Request.new("#{APIUrl}#{end_point}", request_options)
   end
 
@@ -121,11 +121,19 @@ module Kigo
 
   #Properties
   def self.list_properties
-    self.access('/listProperties', :post)
+    self.access('/listProperties', :post, nil)
+  end
+
+  def self.list_properties_2
+    self.access('/listProperties2', :post, nil)
   end
 
   def self.read_property(property_id)
     self.access('/readProperty', :post, { 'PROP_ID' => property_id })
+  end
+
+  def self.read_property_2(property_id)
+    self.access('/readProperty2', :post, { 'PROP_ID' => property_id })
   end
 
   def self.read_property_photo_file(property_id, photo_id)
